@@ -10,7 +10,6 @@
     "prettify": "prettier src --write",
     "lint": "eslint src --fix"
   },
-  "repository": "https://github.com/vmik7/hep-template.git",
   "author": "vmik7 <vmik7@yandex.ru>",
   "license": "MIT",
   "devDependencies": {
