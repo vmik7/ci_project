@@ -1,8 +1,9 @@
 {
-  "name": "db",
+  "name": "api",
   "version": "1.0.0",
-  "description": "db server",
   "main": "src/index.ts",
+  "author": "vmik7",
+  "license": "MIT",
   "scripts": {
     "start": "npx ts-node src/index.ts",
     "dev": "npx ts-node-dev src/index.ts",
@@ -10,13 +11,11 @@
     "prettify": "prettier src --write",
     "lint": "eslint src --fix"
   },
-  "author": "vmik7 <vmik7@yandex.ru>",
-  "license": "MIT",
   "devDependencies": {
     "@types/node": "^17.0.39",
-    "eslint": "^7.29.0",
-    "eslint-config-airbnb": "^18.2.1",
-    "eslint-plugin-prettier": "^3.4.0",
+    "eslint": "^8.16.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.2",
     "ts-node": "^10.8.0",
     "ts-node-dev": "^2.0.0",
