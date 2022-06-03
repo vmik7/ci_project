@@ -14,7 +14,6 @@
   "devDependencies": {
     "@types/node": "^17.0.39",
     "eslint": "^8.16.0",
-    "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-prettier": "^4.0.0",
     "prettier": "^2.6.2",
     "ts-node": "^10.8.0",
