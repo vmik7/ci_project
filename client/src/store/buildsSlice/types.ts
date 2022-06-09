@@ -1,6 +1,6 @@
 import { Build } from 'api'
 
-export interface IBuildsState {
+export interface BuildsState {
     data: Build[]
 
     isLoading: boolean

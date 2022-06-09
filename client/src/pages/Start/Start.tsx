@@ -26,7 +26,7 @@ export const Start = memo<StartProps>((props) => {
     return (
         <>
             <Header
-                title="School CI server"
+                title="CI server"
                 isFaded
                 buttons={[
                     {

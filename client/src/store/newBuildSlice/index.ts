@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import { BuildRequestResult } from 'api'
-import { INewBuildState } from 'store/newBuildSlice/types'
+import { NewBuildState } from 'store/newBuildSlice/types'
 import { AsyncThunkConfig, RootState } from 'store/types'
 
 export const newBuildSliceName = 'newBuild'
 
-const initialState: INewBuildState = {
+const initialState: NewBuildState = {
     hash: '',
 
     isSubmitting: false,
@@ -29,13 +29,13 @@ export const newBuildSlice = createSlice({
     initialState,
 
     reducers: {
-        setHash(state: INewBuildState, action: PayloadAction<string>) {
+        setHash(state: NewBuildState, action: PayloadAction<string>) {
             state.hash = action.payload
         },
-        nullSubmitError(state: INewBuildState) {
+        nullSubmitError(state: NewBuildState) {
             state.submitError = null
         },
-        nullNewBuildData(state: INewBuildState) {
+        nullNewBuildData(state: NewBuildState) {
             state.hash = ''
             state.isSubmitting = false
             state.isSubmitted = false
@@ -46,7 +46,7 @@ export const newBuildSlice = createSlice({
 
     extraReducers: (builder) => {
         builder
-            .addCase(postBuild.pending, (state: INewBuildState) => {
+            .addCase(postBuild.pending, (state: NewBuildState) => {
                 state.isSubmitting = true
                 state.isSubmitted = false
                 state.submitError = null
@@ -54,7 +54,7 @@ export const newBuildSlice = createSlice({
             .addCase(
                 postBuild.fulfilled,
                 (
-                    state: INewBuildState,
+                    state: NewBuildState,
                     action: PayloadAction<BuildRequestResult>
                 ) => {
                     state.isSubmitting = false
@@ -62,7 +62,7 @@ export const newBuildSlice = createSlice({
                     state.isSubmitted = true
                 }
             )
-            .addCase(postBuild.rejected, (state: INewBuildState) => {
+            .addCase(postBuild.rejected, (state: NewBuildState) => {
                 state.isSubmitting = false
                 state.submitError = 'Ошибка запроса'
             })

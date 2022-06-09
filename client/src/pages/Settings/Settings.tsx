@@ -137,7 +137,7 @@ export const Settings = memo<SettingsProps>((props) => {
 
     return (
         <>
-            <Header title="School CI server" isFaded={true} />
+            <Header title="CI server" isFaded={true} />
             <div className={block(null, [contentClass])} data-testid="settings">
                 <div className={block('container', ['container'])}>
                     <div className={block('header')}>

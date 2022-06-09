@@ -1,12 +1,8 @@
 import { Build, BuildRequestResult, BuildLog } from 'api'
 
-export interface IBuildDetailsState {
-    data: {
-        [index: string]: Build
-    }
-    logs: {
-        [index: string]: string
-    }
+export interface BuildDetailsState {
+    data: Record<string, Build>
+    logs: Record<string, string>
 
     isLoading: boolean
     isLoaded: boolean

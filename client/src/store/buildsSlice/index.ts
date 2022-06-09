@@ -1,14 +1,15 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import { Build } from 'api'
-import { IBuildsState } from 'store/buildsSlice/types'
+// import { initialState } from 'store/buildsSlice/mock'
+import { BuildsState } from 'store/buildsSlice/types'
 import { AsyncThunkConfig, RootState } from 'store/types'
 
 export const buildsSliceName = 'builds'
 
 const buildsCountToLoad = 10
 
-const initialState: IBuildsState = {
+const initialState: BuildsState = {
     data: [],
 
     isLoading: false,
@@ -62,20 +63,20 @@ export const buildsSlice = createSlice({
     initialState,
 
     reducers: {
-        allLoaded(state: IBuildsState) {
+        allLoaded(state: BuildsState) {
             state.isAllLoaded = true
         },
-        openModal(state: IBuildsState) {
+        openModal(state: BuildsState) {
             state.isModalOpen = true
         },
-        closeModal(state: IBuildsState) {
+        closeModal(state: BuildsState) {
             state.isModalOpen = false
         },
     },
 
     extraReducers: (builder) => {
         builder
-            .addCase(fetchBuilds.pending, (state: IBuildsState) => {
+            .addCase(fetchBuilds.pending, (state: BuildsState) => {
                 state.isLoading = true
                 state.isLoaded = false
                 state.isAllLoaded = false
@@ -83,31 +84,31 @@ export const buildsSlice = createSlice({
             })
             .addCase(
                 fetchBuilds.fulfilled,
-                (state: IBuildsState, action: PayloadAction<Build[]>) => {
+                (state: BuildsState, action: PayloadAction<Build[]>) => {
                     state.data = action.payload
                     state.isLoading = false
                     state.isLoaded = true
                 }
             )
-            .addCase(fetchBuilds.rejected, (state: IBuildsState) => {
+            .addCase(fetchBuilds.rejected, (state: BuildsState) => {
                 state.isLoading = false
                 state.loadError = 'Ошибка запроса'
             })
 
-            .addCase(moreBuilds.pending, (state: IBuildsState) => {
+            .addCase(moreBuilds.pending, (state: BuildsState) => {
                 state.isLoading = true
                 state.isLoaded = false
                 state.loadError = null
             })
             .addCase(
                 moreBuilds.fulfilled,
-                (state: IBuildsState, action: PayloadAction<Build[]>) => {
+                (state: BuildsState, action: PayloadAction<Build[]>) => {
                     state.data.push(...action.payload)
                     state.isLoading = false
                     state.isLoaded = true
                 }
             )
-            .addCase(moreBuilds.rejected, (state: IBuildsState) => {
+            .addCase(moreBuilds.rejected, (state: BuildsState) => {
                 state.isLoading = false
                 state.loadError = 'Ошибка запроса'
             })

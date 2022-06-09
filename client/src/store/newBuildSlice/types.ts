@@ -1,6 +1,6 @@
 import { BuildRequestResult } from 'api'
 
-export interface INewBuildState {
+export interface NewBuildState {
     hash: string
 
     isSubmitting: boolean

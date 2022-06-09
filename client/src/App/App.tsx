@@ -15,14 +15,19 @@ export const App: FC = () => {
         <div className={block()}>
             <Routes>
                 {routes.map((route) => (
-                    <Route path={route.path} key={route.path}>
-                        <route.component
-                            loadData={route.loadData}
-                            contentClass={route.contentClass}
-                        />
-                    </Route>
+                    <Route
+                        path={route.path}
+                        key={route.path}
+                        element={
+                            <route.component
+                                loadData={route.loadData}
+                                contentClass={route.contentClass}
+                            />
+                        }
+                    />
                 ))}
             </Routes>
+
             <Footer className={block('footer')} />
         </div>
     )

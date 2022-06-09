@@ -1,6 +1,6 @@
 import { Configuration } from 'api'
 
-export interface ISettingsState {
+export interface SettingsState {
     data: Configuration
 
     isLoading: boolean

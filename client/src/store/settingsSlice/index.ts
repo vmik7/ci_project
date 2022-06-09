@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import { Configuration, ConfigurationPostData } from 'api'
-import { ISettingsState } from 'store/settingsSlice/types'
+// import { initialState } from 'store/settingsSlice/mock'
+import { SettingsState } from 'store/settingsSlice/types'
 import { AsyncThunkConfig, RootState } from 'store/types'
 
 export const settingsSliceName = 'settings'
 
-const initialState: ISettingsState = {
+const initialState: SettingsState = {
     data: {
         id: '',
         repoName: '',
@@ -58,7 +59,7 @@ export const settingsSlice = createSlice({
 
     reducers: {
         fieldsChanged(
-            state: ISettingsState,
+            state: SettingsState,
             action: PayloadAction<ConfigurationPostData>
         ) {
             state.isChanged =
@@ -67,17 +68,17 @@ export const settingsSlice = createSlice({
                 state.data.mainBranch !== action.payload.mainBranch ||
                 state.data.period !== action.payload.period
         },
-        nullSaveError(state: ISettingsState) {
+        nullSaveError(state: SettingsState) {
             state.saveError = null
         },
-        nullSaveStatus(state: ISettingsState) {
+        nullSaveStatus(state: SettingsState) {
             state.isSaved = false
         },
     },
 
     extraReducers: (builder) => {
         builder
-            .addCase(fetchSettings.pending, (state: ISettingsState) => {
+            .addCase(fetchSettings.pending, (state: SettingsState) => {
                 state.isLoading = true
                 state.isLoaded = false
                 state.loadError = null
@@ -85,7 +86,7 @@ export const settingsSlice = createSlice({
             .addCase(
                 fetchSettings.fulfilled,
                 (
-                    state: ISettingsState,
+                    state: SettingsState,
                     action: PayloadAction<Configuration>
                 ) => {
                     state.data = action.payload
@@ -96,22 +97,22 @@ export const settingsSlice = createSlice({
                     state.isChanged = false
                 }
             )
-            .addCase(fetchSettings.rejected, (state: ISettingsState) => {
+            .addCase(fetchSettings.rejected, (state: SettingsState) => {
                 state.isLoading = false
                 state.loadError = 'Ошибка при загрузке настроек'
             })
 
-            .addCase(setSettings.pending, (state: ISettingsState) => {
+            .addCase(setSettings.pending, (state: SettingsState) => {
                 state.isSaving = true
                 state.isSaved = false
                 state.saveError = null
             })
-            .addCase(setSettings.fulfilled, (state: ISettingsState) => {
+            .addCase(setSettings.fulfilled, (state: SettingsState) => {
                 state.isSaving = false
                 state.isSaved = true
                 state.isChanged = false
             })
-            .addCase(setSettings.rejected, (state: ISettingsState) => {
+            .addCase(setSettings.rejected, (state: SettingsState) => {
                 state.isSaving = false
                 state.saveError = 'Ошибка сохранения настроек'
             })

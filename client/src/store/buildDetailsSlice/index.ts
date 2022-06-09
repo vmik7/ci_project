@@ -1,15 +1,16 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit'
 
 import { Build, BuildRequestResult } from 'api'
+// import { initialState } from 'store/buildDetailsSlice/mock'
 import {
-    IBuildDetailsState,
+    BuildDetailsState,
     LogThunkResult,
 } from 'store/buildDetailsSlice/types'
 import type { RootState, AsyncThunkConfig } from 'store/types'
 
 export const buildDetailsSliceName = 'buildDetails'
 
-const initialState: IBuildDetailsState = {
+const initialState: BuildDetailsState = {
     data: {},
     logs: {},
 
@@ -57,24 +58,24 @@ export const buildSlice = createSlice({
     initialState,
 
     reducers: {
-        nullRebuildError(state: IBuildDetailsState) {
+        nullRebuildError(state: BuildDetailsState) {
             state.rebuildError = null
         },
-        nullRebuildData(state: IBuildDetailsState) {
+        nullRebuildData(state: BuildDetailsState) {
             state.rebuild = null
         },
     },
 
     extraReducers: (builder) => {
         builder
-            .addCase(fetchBuildById.pending, (state: IBuildDetailsState) => {
+            .addCase(fetchBuildById.pending, (state: BuildDetailsState) => {
                 state.isLoading = true
                 state.isLoaded = false
                 state.loadError = null
             })
             .addCase(
                 fetchBuildById.fulfilled,
-                (state: IBuildDetailsState, action: PayloadAction<Build>) => {
+                (state: BuildDetailsState, action: PayloadAction<Build>) => {
                     const buildData = action.payload
 
                     state.data[buildData.id] = buildData
@@ -83,12 +84,12 @@ export const buildSlice = createSlice({
                     state.isLoaded = true
                 }
             )
-            .addCase(fetchBuildById.rejected, (state: IBuildDetailsState) => {
+            .addCase(fetchBuildById.rejected, (state: BuildDetailsState) => {
                 state.isLoading = false
                 state.loadError = 'Ошибка запроса данных'
             })
 
-            .addCase(fetchLogById.pending, (state: IBuildDetailsState) => {
+            .addCase(fetchLogById.pending, (state: BuildDetailsState) => {
                 state.isLogsLoading = true
                 state.isLogsLoaded = false
                 state.loadLogsError = null
@@ -96,7 +97,7 @@ export const buildSlice = createSlice({
             .addCase(
                 fetchLogById.fulfilled,
                 (
-                    state: IBuildDetailsState,
+                    state: BuildDetailsState,
                     action: PayloadAction<LogThunkResult>
                 ) => {
                     const { id, log } = action.payload
@@ -107,12 +108,12 @@ export const buildSlice = createSlice({
                     state.isLogsLoaded = true
                 }
             )
-            .addCase(fetchLogById.rejected, (state: IBuildDetailsState) => {
+            .addCase(fetchLogById.rejected, (state: BuildDetailsState) => {
                 state.isLogsLoading = false
                 state.loadLogsError = 'Ошибка запроса logs'
             })
 
-            .addCase(fetchRebuild.pending, (state: IBuildDetailsState) => {
+            .addCase(fetchRebuild.pending, (state: BuildDetailsState) => {
                 state.isRebuilding = true
                 state.isRebuilded = false
                 state.rebuildError = null
@@ -120,7 +121,7 @@ export const buildSlice = createSlice({
             .addCase(
                 fetchRebuild.fulfilled,
                 (
-                    state: IBuildDetailsState,
+                    state: BuildDetailsState,
                     action: PayloadAction<BuildRequestResult>
                 ) => {
                     state.isRebuilding = false
@@ -129,7 +130,7 @@ export const buildSlice = createSlice({
                     state.isRebuilded = true
                 }
             )
-            .addCase(fetchRebuild.rejected, (state: IBuildDetailsState) => {
+            .addCase(fetchRebuild.rejected, (state: BuildDetailsState) => {
                 state.isRebuilding = false
                 state.rebuildError = 'Ошибка запроса на повторную сборку'
             })
